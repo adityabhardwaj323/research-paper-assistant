@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import LandingPage from './pages/LandingPage';
-import Dashboard from './pages/Dashboard';
+// src/App.js
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
+import Dashboard from "./pages/Dashboard";
+import "./App.css";
 
 export default function App() {
-  const [page, setPage] = useState('landing');
-
   return (
-    <div style={{ fontFamily: "'Syne', sans-serif" }}>
-      {page === 'landing' ? (
-        <LandingPage onEnterApp={() => setPage('app')} />
-      ) : (
-        <Dashboard onBack={() => setPage('landing')} />
-      )}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Router>
   );
 }
